@@ -1,3 +1,3 @@
 module.exports = {
-    url: "mongodb://localhost:27017/GP1_db"
+    url: "mongodb://localhost:27017/QLNV_db"
   };

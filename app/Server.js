@@ -26,10 +26,7 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
-//call connect to db
-//const app = express();
-//app.use(...);??????
-
+//Connect to db
 const db = require("../app/models");
 db.mongoose
   .connect(db.url, {
@@ -44,10 +41,5 @@ db.mongoose
     process.exit();
   });
 
-require("../app/routes/tutorial.routes")(app);
-
-// set port, listen for requests
-//const PORT = 8000;
-//app.listen(PORT, function(){
- // console.log('Server is running');
-//});
+//set route
+require("./routes/CRUD.routes")(app);
