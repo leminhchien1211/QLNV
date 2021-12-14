@@ -13,13 +13,13 @@ module.exports = app => {
     router.get("/:id", Staff.findOne);
   
     // Update a Staff with id
-    router.put("/:id", Staff.update);
+    //router.put("/:id", Staff.update);
   
     // Delete a Staff with id
-    router.delete("/:id", Staff.delete);
+    //router.delete("/:id", Staff.delete);
   
     // Create a new Staff
-    router.delete("/", Staff.deleteAll);
+    //router.delete("/", Staff.deleteAll);
   
     app.use('/api/staffs', router);
   };

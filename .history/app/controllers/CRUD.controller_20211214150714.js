@@ -90,7 +90,7 @@ exports.update = (req, res) => {
     });
 };
 
-//Delete a Staff with the specified id
+//Delete a Tutorial with the specified id
 exports.delete = (req, res) => {
   const id = req.params.id;
 
@@ -109,22 +109,6 @@ exports.delete = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Could not delete Staff with id=" + id
-      });
-    });
-};
-
-//Delete all Staff  from the database
-exports.deleteAll = (req, res) => {
-  Staff.deleteMany({})
-    .then(data => {
-      res.send({
-        message: `${data.deletedCount} Staff were deleted successfully!`
-      });
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while removing all staff."
       });
     });
 };
