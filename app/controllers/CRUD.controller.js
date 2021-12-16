@@ -29,3 +29,101 @@ exports.create = (req, res) => {
       });
     });
 };
+
+//Retrieve all staff/ find by name from the database
+exports.findAll = (req, res) => {
+  const name = req.query.name;
+  var condition = name ? { name: { $regex: new RegExp(name), $options: "i" } } : {};
+
+  Staff.find(condition)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
+};
+
+//Find a single staff with an id
+exports.findOne = (req, res) => {
+  const id = req.params.id;
+
+  Staff.findById(id)
+    .then(data => {
+      if (!data)
+        res.status(404).send({ message: "Not found Staff with id " + id });
+      else res.send(data);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .send({ message: "Error retrieving Staff with id=" + id });
+    });
+};
+
+//Update a Staff identified by the id in the request
+exports.update = (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Data to update can not be empty!"
+    });
+  }
+
+  const id = req.params.id;
+
+  Staff.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    .then(data => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot update Staff with id=${id}. Maybe Staff was not found!`
+        });
+      } else res.send({ message: "Staff was updated successfully." });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating Staff with id=" + id
+      });
+    });
+};
+
+//Delete a Staff with the specified id
+exports.delete = (req, res) => {
+  const id = req.params.id;
+
+  Staff.findByIdAndRemove(id)
+    .then(data => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot delete Staff with id=${id}. Maybe Staff was not found!`
+        });
+      } else {
+        res.send({
+          message: "Staff was deleted successfully!"
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete Staff with id=" + id
+      });
+    });
+};
+
+//Delete all Staff  from the database
+exports.deleteAll = (req, res) => {
+  Staff.deleteMany({})
+    .then(data => {
+      res.send({
+        message: `${data.deletedCount} Staff were deleted successfully!`
+      });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while removing all staff."
+      });
+    });
+};

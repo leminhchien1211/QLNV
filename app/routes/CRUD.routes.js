@@ -7,22 +7,19 @@ module.exports = app => {
     router.post("/create", Staff.create);
   
     // Retrieve all Staff
-    //router.get("/", Staff.findAll);
-  
-    // Retrieve all published Staff
-    //router.get("/published", Staff.findAllPublished);
+    router.get("/", Staff.findAll);
   
     // Retrieve a single Staff with id
-    //router.get("/:id", Staff.findOne);
+    router.get("/:id", Staff.findOne);
   
     // Update a Staff with id
-    //router.put("/:id", Staff.update);
+    router.put("/:id", Staff.update);
   
     // Delete a Staff with id
-    //router.delete("/:id", Staff.delete);
+    router.delete("/:id", Staff.delete);
   
-    // Create a new Staff
-    //router.delete("/", Staff.deleteAll);
+    // Delete all Staff
+    router.delete("/", Staff.deleteAll);
   
-    app.use('/api', router);
+    app.use('/api/staffs', router);
   };
